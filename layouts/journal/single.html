@@ -1,0 +1,55 @@
+{{ define "main" }}
+
+<article>
+  <!-- Hero -->
+  <section class="relative pt-40 pb-16 px-6 overflow-hidden">
+    <div class="stars-bg"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,29,150,0.18) 0%, transparent 70%);"></div>
+    <div class="max-w-3xl mx-auto relative z-10">
+      <a href="/journal/" class="inline-flex items-center gap-2 font-inter text-xs tracking-widest uppercase text-mist hover:text-gold-light transition-colors duration-200 mb-8 reveal">
+        {{ partial "icons/arrow-left" (dict "class" "w-3.5 h-3.5") }}
+        {{ hugo.Data.ui.nav_journal_entry_section }}
+      </a>
+
+      <!-- Tags -->
+      {{ with .Params.tags }}
+      <div class="flex flex-wrap gap-2 mb-6 reveal reveal-delay-1">
+        {{ range . }}
+        <span class="font-inter text-xs tracking-wider px-2.5 py-1" style="background: rgba(74,29,150,0.2); border: 1px solid rgba(74,29,150,0.3); color: rgba(212,160,23,0.7);">{{ . }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      <h1 class="font-cormorant font-light text-white mb-5 reveal reveal-delay-2" style="font-size: clamp(2.25rem, 5vw, 3.75rem); line-height: 1.05;">
+        {{ .Title }}
+      </h1>
+
+      {{ with .Description }}
+      <p class="font-cormorant italic text-mist-light reveal reveal-delay-3" style="font-size: 1.15rem;">{{ . }}</p>
+      {{ end }}
+
+    </div>
+  </section>
+
+  <div class="divider-gold max-w-3xl mx-auto px-6"></div>
+
+  <!-- Body -->
+  <section class="py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="prose-performer">
+        {{ .Content }}
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-16 pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" style="border-top: 1px solid rgba(255,255,255,0.06);">
+        <a href="/journal/" class="btn-ghost text-xs">
+          {{ partial "icons/arrow-left" (dict "class" "w-3.5 h-3.5") }}
+          {{ hugo.Data.ui.nav_journal_entry_back }}
+        </a>
+        <a href="/contact/" class="btn-outline text-xs py-2.5 px-5">{{ hugo.Data.ui.cta_book }}</a>
+      </div>
+    </div>
+  </section>
+</article>
+
+{{ end }}

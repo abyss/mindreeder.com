@@ -1,0 +1,57 @@
+baseURL = "https://mindreeder.com/"
+languageCode = "en-us"
+title = "Craig Reeder"
+# Set to true in production (requires git history); keep false for non-git local dev
+enableGitInfo = false
+enableRobotsTXT = true
+
+[minify]
+  minifyOutput = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "dracula"
+    noClasses = false
+
+[params]
+  description  = "Craig Reeder — Mentalist & Illusionist. Extraordinary performances for corporate events, private gatherings, and stage shows."
+  email        = "contact@mindreeder.com"
+  formspree_id = "xdaybawj"
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 2
+  [[menu.main]]
+    name = "Shows"
+    url = "/shows/"
+    weight = 3
+  # [[menu.main]]
+  #   name = "Journal"
+  #   url = "/journal/"
+  #   weight = 4
+  [[menu.main]]
+    name = "Consulting"
+    url = "https://consult.mindreeder.com"
+    weight = 4
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 5
+
+[outputs]
+  home = ["HTML"]
+  page = ["HTML"]
+  section = ["HTML"]
+
+[permalinks]
+  journal = "/journal/:slug/"
+  shows = "/shows/:slug/"

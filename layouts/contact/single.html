@@ -1,0 +1,139 @@
+{{ define "main" }}
+
+<!-- Hero -->
+<section class="relative pt-40 pb-20 px-6 overflow-hidden">
+  <div class="stars-bg"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,29,150,0.2) 0%, transparent 70%);"></div>
+  <div class="max-w-4xl mx-auto relative z-10 text-center">
+    <p class="section-label mb-5 reveal">{{ .Params.section_label }}</p>
+    <h1 class="font-cormorant font-light text-white mb-4 reveal reveal-delay-1" style="font-size: clamp(3rem, 7vw, 5rem); line-height: 0.95;">
+      {{ .Title }}
+    </h1>
+    {{ with .Description }}
+    <p class="font-cormorant italic text-mist-light reveal reveal-delay-2" style="font-size: 1.2rem;">{{ . }}</p>
+    {{ end }}
+    <div class="ornament mt-8 reveal reveal-delay-3">
+      <span class="font-cormorant not-italic text-gold opacity-50">&#10022;</span>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+
+      <!-- Contact info sidebar -->
+      <div class="lg:col-span-2 reveal">
+        <div class="font-inter text-sm text-mist leading-relaxed mb-8 prose-contact">
+          {{ .Content }}
+        </div>
+
+        <div class="space-y-6 mb-10">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 flex-shrink-0 flex items-center justify-center" style="background: rgba(74,29,150,0.2); border: 1px solid rgba(74,29,150,0.3);">
+              {{ partial "icons/email" (dict "class" "w-4 h-4 text-gold") }}
+            </div>
+            <div>
+              <p class="font-inter text-xs tracking-widest uppercase text-gold mb-1">Email</p>
+              <a href="mailto:{{ .Site.Params.email }}" class="font-inter text-sm text-mist-light hover:text-gold-light transition-colors duration-200">{{ .Site.Params.email }}</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Availability note -->
+        <div class="p-5 reveal" style="background: var(--bg-elevated); border: 1px solid rgba(212,160,23,0.12); border-left: 2px solid rgba(212,160,23,0.4);">
+          {{ with .Site.GetPage "/chunks/lead-time" }}
+          <p class="font-inter text-xs tracking-widest uppercase text-gold mb-2">{{ .Title }}</p>
+          <div class="font-inter text-sm text-mist leading-relaxed">
+            {{ .Content }}
+          </div>
+          {{ end }}
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="lg:col-span-3 reveal reveal-delay-2">
+        <form
+          action="https://formspree.io/f/{{ .Site.Params.formspree_id }}"
+          method="POST"
+          class="space-y-5"
+          novalidate
+        >
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Your name" class="input-dark">
+            </div>
+            <div>
+              <label for="email" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Email *</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com" class="input-dark">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="phone" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" class="input-dark">
+            </div>
+            <div>
+              <label for="event_type" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Event Type *</label>
+              <select id="event_type" name="event_type" required class="input-dark select-dark">
+                <option value="" disabled selected>Select event type</option>
+                <option value="corporate">Corporate Event</option>
+                <option value="stage">Stage Show</option>
+                <option value="private">Private Party</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="event_date" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Event Date</label>
+              <input type="date" id="event_date" name="event_date" class="input-dark">
+            </div>
+            <div>
+              <label for="audience_size" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Audience Size</label>
+              <select id="audience_size" name="audience_size" class="input-dark select-dark">
+                <option value="" disabled selected>Approx. size</option>
+                <option value="under-25">Under 25</option>
+                <option value="25-100">25 – 100</option>
+                <option value="100-300">100 – 300</option>
+                <option value="300-500">300 – 500</option>
+                <option value="500+">500+</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="location" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Location / Venue</label>
+            <input type="text" id="location" name="location" placeholder="City or venue name" class="input-dark">
+          </div>
+
+          <div>
+            <label for="message" class="block font-inter text-xs tracking-widest uppercase text-gold mb-2">Tell Me About Your Event *</label>
+            <textarea id="message" name="message" required rows="5" placeholder="Describe your event, any specific ideas, and what you're hoping to create..." class="input-dark resize-none"></textarea>
+          </div>
+
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" style="display:none">
+          <input type="hidden" name="_subject" value="New Booking Enquiry — {{ hugo.Data.site.author }}">
+
+          <div class="pt-2">
+            <button type="submit" class="btn-primary w-full sm:w-auto justify-center">
+              Send Enquiry
+              {{ partial "icons/send" (dict "class" "w-4 h-4") }}
+            </button>
+          </div>
+
+          <p class="font-inter text-xs text-mist opacity-50">
+            {{ .Params.reply_note }}
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{ end }}

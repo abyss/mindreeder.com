@@ -1,0 +1,87 @@
+{{ define "main" }}
+
+<!-- Hero -->
+<section class="relative pt-40 pb-20 px-6 overflow-hidden">
+  <div class="stars-bg"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,29,150,0.2) 0%, transparent 70%);"></div>
+  <div class="max-w-4xl mx-auto relative z-10 text-center">
+    <p class="section-label mb-5 reveal">{{ .Params.section_label }}</p>
+    <h1 class="font-cormorant font-light text-white mb-4 reveal reveal-delay-1" style="font-size: clamp(3rem, 7vw, 5rem); line-height: 0.95;">
+      {{ .Title }}
+    </h1>
+    {{ with .Description }}
+    <p class="font-cormorant italic text-mist-light reveal reveal-delay-2" style="font-size: 1.2rem;">{{ . }}</p>
+    {{ end }}
+    <div class="ornament mt-8 reveal reveal-delay-3">
+      <span class="font-cormorant not-italic text-gold opacity-50">&#10022;</span>
+    </div>
+  </div>
+</section>
+
+<!-- Shows grid -->
+<section class="py-20 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {{ range .Pages }}
+      <article class="card-dark group overflow-hidden reveal">
+        <div class="p-10">
+          <!-- Icon -->
+          <div class="show-icon mb-6">{{ with .Params.icon }}{{ . }}{{ else }}✦{{ end }}</div>
+
+          <h2 class="font-cormorant text-3xl font-light text-white mb-3 group-hover:text-gold-light transition-colors duration-300">
+            {{ .Title }}
+          </h2>
+
+          {{ with .Description }}
+          <p class="font-inter text-sm text-mist leading-relaxed mb-6">{{ . }}</p>
+          {{ end }}
+
+          <!-- Meta row -->
+          <div class="flex flex-wrap gap-6 mb-8">
+            {{ with .Params.duration }}
+            <div>
+              <p class="font-inter text-xs tracking-widest uppercase text-gold mb-1">Duration</p>
+              <p class="font-inter text-sm text-mist-light">{{ . }}</p>
+            </div>
+            {{ end }}
+            {{ with .Params.audience_size }}
+            <div>
+              <p class="font-inter text-xs tracking-widest uppercase text-gold mb-1">Audience</p>
+              <p class="font-inter text-sm text-mist-light">{{ . }}</p>
+            </div>
+            {{ end }}
+          </div>
+
+          <a href="{{ .RelPermalink }}" class="btn-outline text-xs py-2.5 px-5">
+            {{ hugo.Data.ui.cta_shows_entry }}
+            {{ partial "icons/arrow-right" (dict "class" "w-3.5 h-3.5") }}
+          </a>
+        </div>
+
+        <!-- Bottom accent line -->
+        <div class="h-px w-0 group-hover:w-full transition-all duration-700" style="background: linear-gradient(90deg, var(--gold), transparent);"></div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-24 px-6 text-center" style="background: var(--bg-surface);">
+  <div class="divider-gold mb-0"></div>
+  <div class="max-w-2xl mx-auto py-16">
+    {{ with .Site.GetPage "/chunks/bespoke-body" }}
+    <p class="section-label mb-4 reveal">{{ .Title }}</p>
+    <h2 class="font-cormorant font-light text-white mb-6 reveal reveal-delay-1" style="font-size: clamp(2rem, 4vw, 3rem);">
+      {{ .Params.heading }}
+    </h2>
+    <div class="font-inter text-sm text-mist mb-8 reveal reveal-delay-2">
+      {{ .Content }}
+    </div>
+    {{ end }}
+    <a href="/contact/" class="btn-primary reveal reveal-delay-3">{{ hugo.Data.ui.cta_shows_bespoke }}</a>
+  </div>
+  <div class="divider-gold"></div>
+</section>
+
+{{ end }}

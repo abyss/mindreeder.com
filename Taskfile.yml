@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+  setup:
+    desc: Install all dependencies
+    cmds:
+      - npm install
+
+  build:
+    desc: Build the site
+    cmds:
+      - hugo --minify
+
+  dev:
+    desc: Start the dev server
+    cmds:
+      - hugo server --disableFastRender

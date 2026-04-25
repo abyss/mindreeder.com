@@ -1,0 +1,61 @@
+{{ define "main" }}
+
+<!-- Hero -->
+<section class="relative pt-40 pb-20 px-6 overflow-hidden">
+  <div class="stars-bg"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,29,150,0.2) 0%, transparent 70%);"></div>
+  <div class="max-w-4xl mx-auto relative z-10 text-center">
+    <p class="section-label mb-5 reveal">{{ .Params.section_label }}</p>
+    <h1 class="font-cormorant font-light text-white mb-4 reveal reveal-delay-1" style="font-size: clamp(3rem, 7vw, 5rem); line-height: 0.95;">
+      {{ .Title }}
+    </h1>
+    {{ with .Description }}
+    <p class="font-cormorant italic text-mist-light reveal reveal-delay-2" style="font-size: 1.2rem;">{{ . }}</p>
+    {{ end }}
+    <div class="ornament mt-8 reveal reveal-delay-3">
+      <span class="font-cormorant not-italic text-gold opacity-50">&#10022;</span>
+    </div>
+  </div>
+</section>
+
+<!-- Posts -->
+<section class="py-16 px-6">
+  <div class="max-w-4xl mx-auto">
+    {{ range .Pages }}
+    <article class="group py-12 reveal" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+      <div>
+        <!-- Content -->
+        <div>
+          <!-- Tags -->
+          {{ with .Params.tags }}
+          <div class="flex flex-wrap gap-2 mb-3">
+            {{ range . }}
+            <span class="font-inter text-xs tracking-wider px-2.5 py-1" style="background: rgba(74,29,150,0.2); border: 1px solid rgba(74,29,150,0.3); color: rgba(212,160,23,0.7);">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ end }}
+
+          <h2 class="font-cormorant font-light text-white mb-3 group-hover:text-gold-light transition-colors duration-300" style="font-size: clamp(1.75rem, 3vw, 2.25rem); line-height: 1.1;">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h2>
+
+          {{ if .Description }}
+          <p class="font-inter text-sm text-mist leading-relaxed mb-5">{{ .Description }}</p>
+          {{ else if .Summary }}
+          <p class="font-inter text-sm text-mist leading-relaxed mb-5">{{ .Summary }}</p>
+          {{ end }}
+
+          <a href="{{ .RelPermalink }}" class="btn-ghost text-xs">
+            {{ hugo.Data.ui.read_button }}
+            {{ partial "icons/arrow-right" (dict "class" "w-3.5 h-3.5") }}
+          </a>
+        </div>
+      </div>
+    </article>
+    {{ else }}
+    <p class="font-inter text-mist text-center py-16">{{ hugo.Data.ui.empty_state }}</p>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

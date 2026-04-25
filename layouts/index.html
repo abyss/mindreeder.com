@@ -1,0 +1,152 @@
+{{ define "main" }}
+
+<!-- ── HERO ── -->
+<section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden" style="background: #0a0a0f;">
+  <div class="stars-bg"></div>
+  <div class="hero-glow"></div>
+
+  <!-- Vertical accent lines -->
+  <div class="absolute left-8 top-0 bottom-0 w-px hidden xl:block" style="background: linear-gradient(180deg, transparent, rgba(212,160,23,0.12), transparent);"></div>
+  <div class="absolute right-8 top-0 bottom-0 w-px hidden xl:block" style="background: linear-gradient(180deg, transparent, rgba(212,160,23,0.12), transparent);"></div>
+
+  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+    <!-- Pre-title -->
+    <div class="flex items-center justify-center gap-4 mb-8 opacity-0 animate-fade-in" style="animation-delay:0.2s; animation-fill-mode: forwards;">
+      <span class="w-12 h-px" style="background: linear-gradient(90deg, transparent, rgba(212,160,23,0.5));"></span>
+      <span class="section-label">{{ hugo.Data.site.header_subtitle }}</span>
+      <span class="w-12 h-px" style="background: linear-gradient(90deg, rgba(212,160,23,0.5), transparent);"></span>
+    </div>
+
+    <!-- Main headline -->
+    <h1 class="font-cormorant font-light text-white mb-6 opacity-0 animate-fade-in"
+        style="font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.92; letter-spacing: -0.02em; animation-delay: 0.4s; animation-fill-mode: forwards;">
+      Craig<br>
+      <em class="text-shimmer not-italic" style="font-style: italic;">Reeder</em>
+    </h1>
+
+    <!-- Tagline -->
+    <p class="font-cormorant font-light italic text-white mb-10 opacity-0 animate-fade-in"
+       style="font-size: clamp(1.2rem, 2.5vw, 1.75rem); color: rgba(255,255,255,0.65); animation-delay: 0.7s; animation-fill-mode: forwards; letter-spacing: 0.02em;">
+      {{ hugo.Data.site.tagline }}
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-fade-in" style="animation-delay: 1s; animation-fill-mode: forwards;">
+      <a href="/contact/" class="btn-primary">{{ hugo.Data.ui.cta_home_book }}</a>
+      <a href="/shows/" class="btn-outline">{{ hugo.Data.ui.cta_home_shows }}</a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="mt-20 opacity-0 animate-fade-in" style="animation-delay: 1.4s; animation-fill-mode: forwards;">
+      <div class="hero-line animate-float"></div>
+      <p class="font-inter text-xs tracking-[0.3em] uppercase mt-4" style="color: rgba(212,160,23,0.45);">Scroll</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTRO ── -->
+<section class="relative py-28 px-6 overflow-hidden">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="section-label mb-6 reveal">{{ .Params.intro_label }}</p>
+    <h2 class="font-cormorant font-light text-white mb-8 reveal reveal-delay-1" style="font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1;">
+      {{ .Params.intro_heading }}<br><em class="text-gold-gradient">{{ .Params.intro_heading_em }}</em>
+    </h2>
+    <div class="ornament mb-8 reveal reveal-delay-2">
+      <span class="font-cormorant not-italic text-gold opacity-50">&#10022;</span>
+    </div>
+    <div class="font-inter text-base leading-relaxed text-mist reveal reveal-delay-2 intro-content" style="max-width: 640px; margin-left: auto; margin-right: auto;">
+      {{ .Content }}
+    </div>
+    <div class="mt-12 reveal reveal-delay-4">
+      <a href="/about/" class="btn-ghost">
+        {{ hugo.Data.ui.cta_about }}
+        {{ partial "icons/arrow-right" (dict "class" "w-4 h-4") }}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SHOWS TEASER ── -->
+<section class="py-24 px-6" style="background: var(--bg-surface);">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="section-label mb-4 reveal">{{ .Params.shows_section_label }}</p>
+      <h2 class="font-cormorant font-light text-white reveal reveal-delay-1" style="font-size: clamp(2rem, 4vw, 3rem);">
+        {{ .Params.shows_heading }}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {{ range first 3 (sort (.Site.GetPage "/shows").RegularPages "Params.weight") }}
+      <article class="card-dark p-8 reveal{{ if gt .Params.weight 1 }} reveal-delay-{{ sub .Params.weight 1 }}{{ end }}">
+        <div class="show-icon mb-6">{{ with .Params.icon }}{{ . }}{{ else }}✦{{ end }}</div>
+        <h3 class="font-cormorant text-2xl font-light text-white mb-3">{{ .Title }}</h3>
+        {{ with .Description }}
+        <p class="font-inter text-sm text-mist leading-relaxed mb-6">{{ . }}</p>
+        {{ end }}
+        <a href="{{ .RelPermalink }}" class="btn-ghost text-xs">
+          Learn more
+          {{ partial "icons/arrow-right" (dict "class" "w-3.5 h-3.5") }}
+        </a>
+      </article>
+      {{ end }}
+    </div>
+
+    <div class="text-center mt-10 reveal">
+      <a href="/shows/" class="btn-outline">{{ hugo.Data.ui.cta_home_all_shows }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="py-24 px-6 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(74,29,150,0.12) 0%, transparent 70%);"></div>
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="text-center mb-16">
+      <p class="section-label mb-4 reveal">{{ .Params.testimonials_section_label }}</p>
+      <h2 class="font-cormorant font-light text-white reveal reveal-delay-1" style="font-size: clamp(2rem, 4vw, 3rem);">
+        {{ .Params.testimonials_heading }}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {{ range $i, $t := hugo.Data.testimonials.items }}
+      <blockquote class="card-dark p-8 flex flex-col reveal{{ if gt $i 0 }} reveal-delay-{{ mul $i 2 }}{{ end }}">
+        <div class="quote-mark mb-2">&ldquo;</div>
+        <p class="font-cormorant text-xl font-light italic text-mist-light leading-relaxed flex-1 mb-6">
+          {{ $t.quote }}
+        </p>
+        <footer>
+          <p class="font-inter text-sm font-medium" style="color: var(--gold-light);">{{ $t.name }}</p>
+          <p class="font-inter text-xs text-mist mt-0.5">{{ $t.role }}</p>
+        </footer>
+      </blockquote>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="py-28 px-6 relative overflow-hidden" style="background: var(--bg-surface);">
+  <div class="divider-gold absolute top-0 left-0 right-0"></div>
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 50% 80% at 50% 100%, rgba(212,160,23,0.06) 0%, transparent 70%);"></div>
+
+  <div class="max-w-3xl mx-auto text-center relative z-10">
+    {{ with .Site.GetPage "/chunks/cta-availability" }}
+    <p class="section-label mb-6 reveal">{{ .Title }}</p>
+    <h2 class="font-cormorant font-light text-white mb-6 reveal reveal-delay-1" style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05;">
+      {{ .Params.heading }}<br><em class="text-gold-gradient">{{ .Params.heading_em }}</em>
+    </h2>
+    <div class="font-inter text-base text-mist mb-10 reveal reveal-delay-2" style="max-width: 480px; margin-left: auto; margin-right: auto;">
+      {{ .Content }}
+    </div>
+    {{ end }}
+    <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-3">
+      <a href="/contact/" class="btn-primary">{{ hugo.Data.ui.cta_book }}</a>
+      <a href="/about/" class="btn-outline">Learn more</a>
+    </div>
+  </div>
+  <div class="divider-gold absolute bottom-0 left-0 right-0"></div>
+</section>
+
+{{ end }}

@@ -1,0 +1,26 @@
+{{ define "main" }}
+<section class="pt-36 pb-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <header class="text-center mb-16">
+      <p class="section-label mb-4">{{ .Section | humanize }}</p>
+      <h1 class="font-cormorant font-light text-white" style="font-size: clamp(2.5rem, 5vw, 4rem);">{{ .Title }}</h1>
+      {{ with .Description }}<p class="font-cormorant italic text-mist-light mt-4" style="font-size: 1.2rem;">{{ . }}</p>{{ end }}
+      <div class="divider-gold mt-8 max-w-xs mx-auto"></div>
+    </header>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range .Pages }}
+      <article class="card-dark p-8 reveal">
+        <h2 class="font-cormorant text-2xl font-light text-white mb-3">
+          <a href="{{ .RelPermalink }}" class="hover:text-gold-light transition-colors duration-200">{{ .Title }}</a>
+        </h2>
+        {{ with .Description }}<p class="font-inter text-sm text-mist leading-relaxed mb-4">{{ . }}</p>{{ end }}
+        <a href="{{ .RelPermalink }}" class="btn-ghost text-xs">
+          Read more
+          {{ partial "icons/arrow-right" (dict "class" "w-3.5 h-3.5") }}
+        </a>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

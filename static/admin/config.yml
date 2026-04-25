@@ -1,0 +1,246 @@
+backend:
+  name: github
+  repo: abyss/victor.abyss.dev
+  branch: main
+
+media_folder: static/images/uploads
+public_folder: /images/uploads
+
+site_url: https://victor.abyss.dev
+display_url: https://victor.abyss.dev
+
+collections:
+
+  # ── Journal Posts ──
+  - name: posts
+    label: Journal Posts
+    label_singular: Journal Post
+    folder: content/journal
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Publish Date
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: true
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+      - label: Description
+        name: description
+        widget: text
+        required: false
+        hint: Short excerpt shown in journal listing and meta tags
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        hint: Comma-separated tags (e.g. psychology, performance)
+      - label: Body
+        name: body
+        widget: markdown
+        required: true
+
+  # ── Shows ──
+  - name: shows
+    label: Shows
+    label_singular: Show
+    folder: content/shows
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Description
+        name: description
+        widget: text
+        required: false
+        hint: Short description shown on the shows listing page
+      - label: Icon (Emoji)
+        name: icon
+        widget: string
+        required: false
+        hint: A single emoji to represent this show type
+        default: "✦"
+      - label: Duration
+        name: duration
+        widget: string
+        required: false
+        hint: e.g. 60–90 minutes
+      - label: Audience Size
+        name: audience_size
+        widget: string
+        required: false
+        hint: e.g. 20–500+
+      - label: Display Order
+        name: weight
+        widget: number
+        default: 10
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+        required: true
+
+  # ── Pages ──
+  - name: pages
+    label: Pages
+    files:
+      - label: About
+        name: about
+        file: content/about.md
+        fields:
+          - label: Section Label
+            name: section_label
+            widget: string
+            hint: Small uppercase label shown above the heading
+          - label: Philosophy Heading
+            name: philosophy_heading
+            widget: string
+          - label: Closing Quote
+            name: closing_quote
+            widget: text
+            hint: Attributed to Victor — shown at the bottom of the page
+          - label: Biography
+            name: body
+            widget: markdown
+
+      - label: Contact
+        name: contact
+        file: content/contact.md
+        fields:
+          - label: Page Title
+            name: title
+            widget: string
+          - label: Meta Description
+            name: description
+            widget: text
+            required: false
+          - label: Section Label
+            name: section_label
+            widget: string
+          - label: Hero Description
+            name: description
+            widget: string
+            hint: Italic line shown below the heading in the hero
+          - label: Reply Note
+            name: reply_note
+            widget: text
+            hint: Shown beneath the form submit button
+          - label: Sidebar Body
+            name: body
+            widget: markdown
+            hint: Shown in the contact sidebar alongside the form
+
+  # ── Content Blocks ──
+  - name: chunks
+    label: Content Blocks
+    files:
+      - label: Homepage — Availability CTA
+        name: cta-availability
+        file: content/chunks/cta-availability.md
+        fields:
+          - label: Heading
+            name: heading
+            widget: string
+          - label: Heading Emphasis
+            name: heading_em
+            widget: string
+            hint: The italicised second line of the heading
+          - label: Body
+            name: body
+            widget: markdown
+
+      - label: Shows — Bespoke Engagements
+        name: bespoke-body
+        file: content/chunks/bespoke-body.md
+        fields:
+          - label: Title
+            name: title
+            widget: string
+          - label: Heading
+            name: heading
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown
+
+      - label: Contact — Lead Time
+        name: lead-time
+        file: content/chunks/lead-time.md
+        fields:
+          - label: Title
+            name: title
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown
+
+  # ── Data ──
+  - name: data
+    label: Data
+    files:
+      - label: Testimonials
+        name: testimonials
+        file: data/testimonials.yaml
+        fields:
+          - label: Testimonials
+            name: items
+            widget: list
+            fields:
+              - label: Quote
+                name: quote
+                widget: text
+                required: true
+              - label: Name
+                name: name
+                widget: string
+                required: true
+              - label: Role
+                name: role
+                widget: string
+                required: false
+
+      - label: Philosophy Pillars
+        name: philosophy
+        file: data/philosophy.yaml
+        fields:
+          - label: Pillars
+            name: items
+            widget: list
+            fields:
+              - label: Icon (Emoji)
+                name: icon
+                widget: string
+              - label: Title
+                name: title
+                widget: string
+              - label: Body
+                name: body
+                widget: text
+
+      - label: Social Links
+        name: social
+        file: data/social.yaml
+        fields:
+          - label: Social Links
+            name: items
+            widget: list
+            fields:
+              - label: Platform
+                name: name
+                widget: string
+                hint: e.g. instagram, facebook, youtube, linkedin, tiktok
+              - label: URL
+                name: url
+                widget: string

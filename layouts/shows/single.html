@@ -1,0 +1,55 @@
+{{ define "main" }}
+
+<article>
+  <!-- Hero -->
+  <section class="relative pt-40 pb-16 px-6 overflow-hidden">
+    <div class="stars-bg"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,29,150,0.2) 0%, transparent 70%);"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+      <a href="/shows/" class="inline-flex items-center gap-2 font-inter text-xs tracking-widest uppercase text-mist hover:text-gold-light transition-colors duration-200 mb-8 reveal">
+        {{ partial "icons/arrow-left" (dict "class" "w-3.5 h-3.5") }}
+        {{ hugo.Data.ui.nav_show_entry_back }}
+      </a>
+      <div class="show-icon mb-6 reveal reveal-delay-1">{{ with .Params.icon }}{{ . }}{{ else }}✦{{ end }}</div>
+      <h1 class="font-cormorant font-light text-white mb-4 reveal reveal-delay-2" style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1;">
+        {{ .Title }}
+      </h1>
+      {{ with .Description }}
+      <p class="font-cormorant italic text-mist-light reveal reveal-delay-3" style="font-size: 1.2rem; max-width: 600px;">{{ . }}</p>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- Details bar -->
+  <div class="py-6 px-6" style="background: var(--bg-surface); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="max-w-4xl mx-auto flex flex-wrap gap-10">
+      {{ with .Params.duration }}
+      <div>
+        <p class="font-inter text-xs tracking-widest uppercase text-gold mb-1">Duration</p>
+        <p class="font-inter text-sm text-mist-light font-medium">{{ . }}</p>
+      </div>
+      {{ end }}
+      {{ with .Params.audience_size }}
+      <div>
+        <p class="font-inter text-xs tracking-widest uppercase text-gold mb-1">Audience</p>
+        <p class="font-inter text-sm text-mist-light font-medium">{{ . }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <section class="py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="prose-performer">
+        {{ .Content }}
+      </div>
+      <div class="mt-12 pt-10" style="border-top: 1px solid rgba(255,255,255,0.06);">
+        <a href="/contact/" class="btn-primary mr-4">{{ hugo.Data.ui.cta_show_book }}</a>
+        <a href="/shows/" class="btn-ghost">{{ hugo.Data.ui.nav_show_all }}</a>
+      </div>
+    </div>
+  </section>
+</article>
+
+{{ end }}

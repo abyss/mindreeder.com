@@ -1,0 +1,104 @@
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background: transparent;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+
+      <!-- Logo -->
+      <a href="/" class="flex flex-col leading-none group" aria-label="{{ .Site.Title }} — Home">
+        <span class="font-cormorant text-2xl font-light tracking-[0.08em] text-white group-hover:text-gold-light transition-colors duration-300">{{ .Site.Title }}</span>
+        <span class="font-inter text-[10px] tracking-[0.3em] uppercase text-gold opacity-70 mt-0.5">{{ hugo.Data.site.header_subtitle }}</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-10" aria-label="Main navigation">
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}" class="nav-link{{ if or (eq $.RelPermalink .URL) (and (ne .URL "/") (hasPrefix $.RelPermalink .URL)) }} active{{ end }}">
+          {{ .Name }}
+        </a>
+        {{ end }}
+        <a href="/contact/" class="btn-primary text-xs py-2.5 px-6 ml-2">{{ hugo.Data.site.nav_cta }}</a>
+      </nav>
+
+      <!-- Mobile hamburger -->
+      <button id="menu-toggle" class="lg:hidden flex flex-col gap-1.5 p-2 z-50" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="menu-line block w-6 h-px bg-gold transition-all duration-300 origin-center"></span>
+        <span class="menu-line block w-6 h-px bg-gold transition-all duration-300"></span>
+        <span class="menu-line block w-4 h-px bg-gold transition-all duration-300 origin-center"></span>
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="stars-bg"></div>
+  <nav class="flex flex-col items-center gap-8 relative z-10" aria-label="Mobile navigation">
+    {{ range .Site.Menus.main }}
+    <a href="{{ .URL }}" class="font-cormorant text-4xl font-light text-white hover:text-gold-light transition-colors duration-300 mobile-nav-link">
+      {{ .Name }}
+    </a>
+    {{ end }}
+    <a href="/contact/" class="btn-primary mt-4">{{ hugo.Data.site.nav_cta }}</a>
+  </nav>
+  <div class="absolute bottom-8 font-inter text-xs tracking-widest text-mist opacity-40">
+    © {{ now.Year }} {{ .Site.Title }}
+  </div>
+</div>
+
+<script>
+(function() {
+  const header = document.getElementById('site-header');
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const lines = toggle.querySelectorAll('.menu-line');
+  let open = false;
+
+  // Scroll behavior
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 60) {
+      header.style.background = 'rgba(10,10,15,0.92)';
+      header.style.backdropFilter = 'blur(20px)';
+      header.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+    } else {
+      header.style.background = 'transparent';
+      header.style.backdropFilter = 'none';
+      header.style.borderBottom = 'none';
+    }
+  }, { passive: true });
+
+  // Menu toggle
+  toggle.addEventListener('click', function() {
+    open = !open;
+    toggle.setAttribute('aria-expanded', open);
+    if (open) {
+      menu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lines[0].style.transform = 'translateY(6px) rotate(45deg)';
+      lines[1].style.opacity = '0';
+      lines[2].style.transform = 'translateY(-6px) rotate(-45deg)';
+      lines[2].style.width = '24px';
+    } else {
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+      lines[0].style.transform = '';
+      lines[1].style.opacity = '';
+      lines[2].style.transform = '';
+      lines[2].style.width = '';
+    }
+  });
+
+  // Close on nav click
+  menu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      open = false;
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+      lines[0].style.transform = '';
+      lines[1].style.opacity = '';
+      lines[2].style.transform = '';
+      lines[2].style.width = '';
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>

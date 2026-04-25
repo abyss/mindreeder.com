@@ -1,0 +1,21 @@
+# ── Home ──
+cta_home_book: "Book a Performance"
+cta_home_shows: "Explore Shows"
+cta_home_all_shows: "View All Shows"
+cta_about: "Discover Craig's story"
+
+# ── Shows ──
+cta_shows_entry: "Show Details"
+cta_shows_bespoke: "Discuss Your Vision"
+cta_show_book: "Book This Show"
+nav_show_entry_back: "All Shows"
+nav_show_all: "See All Shows"
+
+# ── Journal ──
+read_button: "Read essay"
+empty_state: "No posts yet. Check back soon."
+nav_journal_entry_section: "The Journal"
+nav_journal_entry_back: "Back to Journal"
+
+# ── Shared ──
+cta_book: "Book Craig"
