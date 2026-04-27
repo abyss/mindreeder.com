@@ -2,7 +2,7 @@
   <div class="divider-gold absolute top-0 left-0 right-0"></div>
 
   <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
 
       <!-- Brand column -->
       <div class="md:col-span-1">
@@ -36,6 +36,20 @@
           {{ end }}
         </ul>
       </div>
+
+      <!-- Consulting -->
+      {{ range .Site.Menus.footer }}
+      <div>
+        <h3 class="font-inter text-xs tracking-[0.25em] uppercase text-gold mb-5">{{ .Name }}</h3>
+        {{ with .Params.description }}
+        <p class="font-inter text-sm text-mist leading-relaxed mb-5">{{ . }}</p>
+        {{ end }}
+        <a href="{{ .URL }}"{{ with .Params.target }} target="{{ . }}" rel="noopener"{{ end }}
+           class="font-inter text-sm text-mist-light hover:text-gold-light transition-colors duration-200">
+          Visit site ↗
+        </a>
+      </div>
+      {{ end }}
 
       <!-- Contact / CTA -->
       <div>

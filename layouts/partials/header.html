@@ -11,7 +11,7 @@
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-10" aria-label="Main navigation">
         {{ range .Site.Menus.main }}
-        <a href="{{ .URL }}" class="nav-link{{ if or (eq $.RelPermalink .URL) (and (ne .URL "/") (hasPrefix $.RelPermalink .URL)) }} active{{ end }}">
+        <a href="{{ .URL }}"{{ with .Params.target }} target="{{ . }}"{{ end }} class="nav-link{{ if or (eq $.RelPermalink .URL) (and (ne .URL "/") (hasPrefix $.RelPermalink .URL)) }} active{{ end }}">
           {{ .Name }}
         </a>
         {{ end }}
@@ -34,7 +34,7 @@
   <div class="stars-bg"></div>
   <nav class="flex flex-col items-center gap-8 relative z-10" aria-label="Mobile navigation">
     {{ range .Site.Menus.main }}
-    <a href="{{ .URL }}" class="font-cormorant text-4xl font-light text-white hover:text-gold-light transition-colors duration-300 mobile-nav-link">
+    <a href="{{ .URL }}"{{ with .Params.target }} target="{{ . }}"{{ end }} class="font-cormorant text-4xl font-light text-white hover:text-gold-light transition-colors duration-300 mobile-nav-link">
       {{ .Name }}
     </a>
     {{ end }}
