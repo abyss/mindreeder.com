@@ -4,6 +4,7 @@ layout: "single"
 section_label: "The Mentalist"
 philosophy_heading: "The art of genuine astonishment"
 closing_quote: "I don't perform miracles. I simply reveal the ones that were already there."
+# headshot: "images/headshot.jpg"
 ---
 
 Craig Reeder's day job is building the invisible infrastructure that powers enterprise software at scale. By night, he builds something harder to explain. A decade of engineering has given him an unusual lens on performance: a deep appreciation for systems, misdirection, and the gap between what people think is happening and what actually is.

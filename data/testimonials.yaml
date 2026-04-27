@@ -1,12 +1,8 @@
-items:
-  - quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    name: "Lorem Ipsum"
-    role: "Dolor Sit Amet"
+items: []
 
-  - quote: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-    name: "Consectetur"
-    role: "Adipiscing Elit"
-
-  - quote: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-    name: "Sed Do Eiusmod"
-    role: "Tempor Incididunt"
+# To add testimonials, replace the line above with:
+#
+# items:
+#   - quote: "Your testimonial text here."
+#     name: "Full Name"
+#     role: "Title or Event"  # optional
